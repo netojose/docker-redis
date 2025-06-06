@@ -1,0 +1,12 @@
+services:
+  redis:
+    container_name: redis_database
+    image: redis:8.0.2
+    restart: unless-stopped
+    ports:
+      - 127.0.0.1:${REDIS_PORT}:${REDIS_PORT}
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+    command: /bin/sh -c "redis-server --appendonly yes --requirepass $$REDIS_PASSWORD"
+    volumes:
+      - ./data:/data
